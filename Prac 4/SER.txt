@@ -1,0 +1,29 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+public class Server
+{
+public static void main(String args[]) throws IOException
+{
+ServerSocket ss=new ServerSocket(777);
+Socket s=ss.accept();
+int i,sum=0;
+String str;
+DataInputStream din=new DataInputStream(s.getInputStream());
+
+while((str=din.readUTF())!=null)
+{
+System.out.println("The Number Sends by Client is:"+str);
+i=Integer.parseInt(str);
+sum=sum+i;
+
+}
+DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+dout.writeUTF(sum);
+dout.flush();
+din.close();
+dout.close();
+ss.close();
+s.close();
+}
+}
